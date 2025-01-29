@@ -1,0 +1,15 @@
+C:\Users\Akbar\Desktop\Lesson\Lesson14\bin\Debug\net8.0\Lesson14.exe
+C:\Users\Akbar\Desktop\Lesson\Lesson14\bin\Debug\net8.0\Lesson14.deps.json
+C:\Users\Akbar\Desktop\Lesson\Lesson14\bin\Debug\net8.0\Lesson14.runtimeconfig.json
+C:\Users\Akbar\Desktop\Lesson\Lesson14\bin\Debug\net8.0\Lesson14.dll
+C:\Users\Akbar\Desktop\Lesson\Lesson14\bin\Debug\net8.0\Lesson14.pdb
+C:\Users\Akbar\Desktop\Lesson\Lesson14\obj\Debug\net8.0\Lesson14.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Akbar\Desktop\Lesson\Lesson14\obj\Debug\net8.0\Lesson14.AssemblyInfoInputs.cache
+C:\Users\Akbar\Desktop\Lesson\Lesson14\obj\Debug\net8.0\Lesson14.AssemblyInfo.cs
+C:\Users\Akbar\Desktop\Lesson\Lesson14\obj\Debug\net8.0\Lesson14.csproj.CoreCompileInputs.cache
+C:\Users\Akbar\Desktop\Lesson\Lesson14\obj\Debug\net8.0\Lesson14.sourcelink.json
+C:\Users\Akbar\Desktop\Lesson\Lesson14\obj\Debug\net8.0\Lesson14.dll
+C:\Users\Akbar\Desktop\Lesson\Lesson14\obj\Debug\net8.0\refint\Lesson14.dll
+C:\Users\Akbar\Desktop\Lesson\Lesson14\obj\Debug\net8.0\Lesson14.pdb
+C:\Users\Akbar\Desktop\Lesson\Lesson14\obj\Debug\net8.0\Lesson14.genruntimeconfig.cache
+C:\Users\Akbar\Desktop\Lesson\Lesson14\obj\Debug\net8.0\ref\Lesson14.dll
