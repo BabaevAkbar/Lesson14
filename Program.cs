@@ -16,6 +16,28 @@ namespace Lesson14
         {
             Console.WriteLine($"Квадрат числа {a} равен {Math.Pow(a, 2)}");
         }
+
+        private static SemaphoreSlim sS = new SemaphoreSlim(2, 2); 
+        static async Task FileWork(int i)
+        {
+            string nameFile = $"Test{i}.txt";
+            string contentText = $"Hello * {i}";
+            await sS.WaitAsync();
+            if(!File.Exists(nameFile))
+            {
+                File.WriteAllText(nameFile, contentText);
+                await Task.Delay(2000);
+                Console.WriteLine("Файл усаешно создан");
+                sS.Release();
+            }
+            else
+            {
+                string content = File.ReadAllText(nameFile);
+                Console.WriteLine(content);
+                await Task.Delay(2000);
+                sS.Release();
+            }
+        }
         static async Task Main(string[] args)
         {
             // // Задача 1
@@ -30,6 +52,14 @@ namespace Lesson14
 
             // // Задача 2
             // Parallel.For(1, 101, Square);
+
+            // Задача 3
+            for (int i = 1; i <= 5; i++)
+            {
+                int taskId = i;
+                Task.Run(() => FileWork(taskId));
+            }
+            await Task.Delay(5000);
         }
     }
 }
