@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System.Diagnostics;
 
 namespace Lesson14
 {
@@ -38,7 +41,49 @@ namespace Lesson14
                 sS.Release();
             }
         }
-        static async Task Main(string[] args)
+
+        private static object locker = new object();
+        static int[] WorkNotParallel(int[] ints, int p)
+        {
+            int parts = p;
+            var ch = ints.Chunk(parts);
+            int[] z = new int[ints.Length/parts];
+            int index = 0;
+            foreach (var item in ch)
+            {
+                int result = 0;
+                foreach (var item1 in item)
+                {
+                    result += item1; 
+                }
+                z[index] = result;
+                index++;
+            }
+            return z;
+        }
+
+        static int[] WorkWithParallel(int[] ints, int p)
+        {
+            var chunks = ints.Chunk(ints.Length/p).ToArray();
+            int[] z = new int[chunks.Length];
+
+            Parallel.For(0, p, i =>
+            {
+                int result = 0;
+                foreach (var item in chunks[i])
+                {                    
+                    lock (locker)
+                    {
+                        result += item;
+                    }
+                }
+                
+                z[i] = result;
+            });
+
+            return z;
+        }
+        static void Main(string[] args)
         {
             // // Задача 1
             // Task[] tasks = new Task[5];
@@ -53,13 +98,39 @@ namespace Lesson14
             // // Задача 2
             // Parallel.For(1, 101, Square);
 
-            // Задача 3
-            for (int i = 1; i <= 5; i++)
+            // // Задача 3
+            // for (int i = 1; i <= 5; i++)
+            // {
+            //     int taskId = i;
+            //     Task.Run(() => FileWork(taskId));
+            // }
+            // await Task.Delay(5000);
+
+            // Задача 4
+            int[] a = new int[60];
+            Random r = new Random();
+            for (int i = 0; i < a.Length; i++)
             {
-                int taskId = i;
-                Task.Run(() => FileWork(taskId));
+                a[i] = r.Next(1, 100);
             }
-            await Task.Delay(5000);
+            Stopwatch sw = Stopwatch.StartNew();
+            int[] z = WorkNotParallel(a, 10);
+            sw.Stop();
+            foreach (var item in z)
+            {
+                Console.WriteLine($"Результат:{item}");
+            }
+            Console.WriteLine($"Время: {sw.ElapsedMilliseconds} мс");
+
+
+            sw.Restart();
+            int[] z2 = WorkWithParallel(a, 10);
+            sw.Stop();
+            foreach (var item in z)
+            {
+                Console.WriteLine($"Результат:{item}");
+            }
+            Console.WriteLine($"Время: {sw.ElapsedMilliseconds} мс");
         }
     }
 }
