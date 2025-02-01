@@ -83,6 +83,30 @@ namespace Lesson14
 
             return z;
         }
+
+        static void WriteReadFile(object? st)
+        {
+            Random r = new Random();
+            int numInt = r.Next(1, 100);
+            string num = numInt.ToString();
+            File.AppendAllText("Numbers.txt", num);
+            File.AppendAllText("Numbers.txt", " ");
+            Console.WriteLine("Данные записаны!");
+
+            string c = File.ReadAllText("Numbers.txt");
+            string[] arrayString = c.Split(' ');
+            int nums = 0;
+            int result = 0;
+            foreach (var item in arrayString)
+            {
+                if (int.TryParse(item, out nums))
+                {
+                    result += nums;
+                }
+            }
+            Console.WriteLine($"Числа: {c}");
+            Console.WriteLine($"Сумма чисел: {result}");
+        }
         static void Main(string[] args)
         {
             // // Задача 1
@@ -106,31 +130,35 @@ namespace Lesson14
             // }
             // await Task.Delay(5000);
 
-            // Задача 4
-            int[] a = new int[60];
-            Random r = new Random();
-            for (int i = 0; i < a.Length; i++)
-            {
-                a[i] = r.Next(1, 100);
-            }
-            Stopwatch sw = Stopwatch.StartNew();
-            int[] z = WorkNotParallel(a, 10);
-            sw.Stop();
-            foreach (var item in z)
-            {
-                Console.WriteLine($"Результат:{item}");
-            }
-            Console.WriteLine($"Время: {sw.ElapsedMilliseconds} мс");
+            // // Задача 4
+            // int[] a = new int[60];
+            // Random r = new Random();
+            // for (int i = 0; i < a.Length; i++)
+            // {
+            //     a[i] = r.Next(1, 100);
+            // }
+            // Stopwatch sw = Stopwatch.StartNew();
+            // int[] z = WorkNotParallel(a, 10);
+            // sw.Stop();
+            // foreach (var item in z)
+            // {
+            //     Console.WriteLine($"Результат:{item}");
+            // }
+            // Console.WriteLine($"Время: {sw.ElapsedMilliseconds} мс");
 
 
-            sw.Restart();
-            int[] z2 = WorkWithParallel(a, 10);
-            sw.Stop();
-            foreach (var item in z)
-            {
-                Console.WriteLine($"Результат:{item}");
-            }
-            Console.WriteLine($"Время: {sw.ElapsedMilliseconds} мс");
+            // sw.Restart();
+            // int[] z2 = WorkWithParallel(a, 10);
+            // sw.Stop();
+            // foreach (var item in z)
+            // {
+            //     Console.WriteLine($"Результат:{item}");
+            // }
+            // Console.WriteLine($"Время: {sw.ElapsedMilliseconds} мс");
+
+            // Задача 5
+            ThreadPool.QueueUserWorkItem(WriteReadFile);
+            Thread.Sleep(2000);
         }
     }
 }
